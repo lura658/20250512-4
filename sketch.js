@@ -43,7 +43,10 @@ function draw() {
   image(video, 0, 0, width, height);
 
   if (predictions.length > 0) {
+    console.log(predictions); // 檢查 predictions 的內容
     const keypoints = predictions[0].scaledMesh;
+    console.log(keypoints); // 檢查 keypoints 的內容
+
     stroke(255, 0, 0);
     strokeWeight(5);
     noFill();
@@ -51,6 +54,8 @@ function draw() {
     drawPath(lipsPoints, keypoints);
     drawPath(leftEyePoints, keypoints);
     drawPath(rightEyePoints, keypoints);
+  } else {
+    console.log("No predictions available");
   }
 }
 
@@ -60,7 +65,10 @@ function drawPath(points, keypoints) {
     const index = points[i];
     if (keypoints[index]) {
       const [x, y] = keypoints[index];
+      console.log(`Drawing point at (${x}, ${y})`); // 檢查繪製的點
       vertex(x, y);
+    } else {
+      console.log(`Keypoint at index ${index} is undefined`);
     }
   }
   endShape();
